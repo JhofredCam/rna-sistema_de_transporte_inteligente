@@ -24,7 +24,7 @@ const resources = [
     title: 'Código Fuente',
     description:
       'Repositorio con los notebooks de entrenamiento (demanda, conducción, recomendación), modelos exportados y código de la aplicación web.',
-    link: 'https://github.com/d0ubt0/transporte-inteligente',
+    link: 'https://github.com/JhofredCam/rna-sistema_de_transporte_inteligente',
     linkLabel: 'Ver Repositorio',
     color: '#a89984',
     badge: 'GitHub',
