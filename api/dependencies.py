@@ -5,62 +5,19 @@ from pathlib import Path
 
 import joblib
 import torch
-import torch.nn as nn
 
-ROOT_DIR = Path(__file__).resolve().parents[1]
-if str(ROOT_DIR) not in sys.path:
-    sys.path.append(str(ROOT_DIR))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+API_DIR = os.path.dirname(os.path.abspath(__file__))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+ROOT_DIR = Path(PROJECT_ROOT)
 
-
-# ============================================================
-# LA CLASE DEBE COINCIDIR EXACTAMENTE CON LA DEL NOTEBOOK
-# ============================================================
-class TransportLSTM(nn.Module):
-    def __init__(
-        self,
-        num_routes,
-        num_climas,
-        input_size=4,
-        hidden_size=128,
-        num_layers=2,
-        route_embedding_dim=8,
-        clima_embedding_dim=4,
-        dropout=0.2,
-    ):
-        super().__init__()
-
-        self.route_embedding = nn.Embedding(num_routes, route_embedding_dim)
-        self.clima_embedding = nn.Embedding(num_climas, clima_embedding_dim)
-
-        self.lstm = nn.LSTM(
-            input_size=input_size,
-            hidden_size=hidden_size,
-            num_layers=num_layers,
-            batch_first=True,
-            dropout=dropout if num_layers > 1 else 0,
-        )
-
-        fc_input = hidden_size + route_embedding_dim + clima_embedding_dim
-
-        self.fc = nn.Sequential(
-            nn.Linear(fc_input, 64),
-            nn.ReLU(),
-            nn.Dropout(dropout),
-            nn.Linear(64, 1),
-        )
-
-    def forward(self, x, route_ids, clima_ids):
-        lstm_out, _ = self.lstm(x)
-        lstm_out = lstm_out[:, -1, :]
-        route_embed = self.route_embedding(route_ids)
-        clima_embed = self.clima_embedding(clima_ids)
-        combined = torch.cat([lstm_out, route_embed, clima_embed], dim=1)
-        return self.fc(combined)
+from src.module1_demand.model import TransportLSTM
 
 # ============================================================
 # FUNCIÓN DE CARGA GLOBAL
 # ============================================================
-MODEL_DIR = os.path.join("models", "demand")
+MODEL_DIR = os.path.join(API_DIR, "models", "demand")
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 # Variables globales para el Singleton
