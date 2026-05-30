@@ -1,4 +1,5 @@
-const API_BASE = import.meta.env.VITE_API_URL || '';
+const raw = import.meta.env.VITE_API_URL || '';
+const API_BASE = raw.replace(/\/+$/, '');
 
 export async function fetchDemandPrediction(
   sequence,

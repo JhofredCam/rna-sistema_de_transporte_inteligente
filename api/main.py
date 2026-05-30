@@ -1,5 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
+
+
+class StripDoubleSlashMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        path = request.scope.get("path", "")
+        if "//" in path:
+            request.scope["path"] = path.replace("//", "/")
+        return await call_next(request)
+
 from api.routers import demand, distraction
 
 app = FastAPI(
@@ -22,6 +32,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.add_middleware(StripDoubleSlashMiddleware)
 
 # Routers
 app.include_router(demand.router)
