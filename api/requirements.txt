@@ -20,3 +20,4 @@ opencv-python==4.10.0.84
 
 # --- Utilidades ---
 python-multipart==0.0.9  # Necesario para subir archivos (imágenes) en FastAPI
+tqdm==4.66.5

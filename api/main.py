@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import demand
+from routers import demand, distraction
 
 app = FastAPI(
     title="Sistema Inteligente de Transporte",
@@ -25,6 +25,7 @@ app.add_middleware(
 
 # Routers
 app.include_router(demand.router)
+app.include_router(distraction.router)
 
 @app.get("/")
 async def root():

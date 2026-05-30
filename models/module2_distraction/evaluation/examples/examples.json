@@ -1,0 +1,196 @@
+{
+  "examples": [
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\turning\\img_74433.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\correct\\00000_img_74433.jpg",
+      "true_label": "turning",
+      "predicted_label": "turning",
+      "confidence": 0.9999992847442627,
+      "correct": true
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\turning\\img_62141.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\correct\\00001_img_62141.jpg",
+      "true_label": "turning",
+      "predicted_label": "turning",
+      "confidence": 0.9999998807907104,
+      "correct": true
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\texting_phone\\img_33994.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\correct\\00002_img_33994.jpg",
+      "true_label": "texting_phone",
+      "predicted_label": "texting_phone",
+      "confidence": 0.9999995231628418,
+      "correct": true
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\talking_phone\\IMG_3748.JPG",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\incorrect\\00003_IMG_3748.JPG",
+      "true_label": "talking_phone",
+      "predicted_label": "safe_driving",
+      "confidence": 0.6712660789489746,
+      "correct": false
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\safe_driving\\img_44933.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\correct\\00004_img_44933.jpg",
+      "true_label": "safe_driving",
+      "predicted_label": "safe_driving",
+      "confidence": 0.9981096982955933,
+      "correct": true
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\other_activities\\img_19873.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\correct\\00005_img_19873.jpg",
+      "true_label": "other_activities",
+      "predicted_label": "other_activities",
+      "confidence": 0.935768723487854,
+      "correct": true
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\texting_phone\\img_25133.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\correct\\00006_img_25133.jpg",
+      "true_label": "texting_phone",
+      "predicted_label": "texting_phone",
+      "confidence": 0.9999896287918091,
+      "correct": true
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\turning\\img_51489.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\correct\\00007_img_51489.jpg",
+      "true_label": "turning",
+      "predicted_label": "turning",
+      "confidence": 0.9999960660934448,
+      "correct": true
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\talking_phone\\img_33898.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\correct\\00008_img_33898.jpg",
+      "true_label": "talking_phone",
+      "predicted_label": "talking_phone",
+      "confidence": 0.999771773815155,
+      "correct": true
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\safe_driving\\img_70040.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\correct\\00009_img_70040.jpg",
+      "true_label": "safe_driving",
+      "predicted_label": "safe_driving",
+      "confidence": 0.9995885491371155,
+      "correct": true
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\texting_phone\\img_43562.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\correct\\00010_img_43562.jpg",
+      "true_label": "texting_phone",
+      "predicted_label": "texting_phone",
+      "confidence": 0.9999997615814209,
+      "correct": true
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\safe_driving\\img_38722.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\correct\\00011_img_38722.jpg",
+      "true_label": "safe_driving",
+      "predicted_label": "safe_driving",
+      "confidence": 0.9999984502792358,
+      "correct": true
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\talking_phone\\IMG_20240930_135811116_HDR_AE.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\incorrect\\00012_IMG_20240930_135811116_HDR_AE.jpg",
+      "true_label": "talking_phone",
+      "predicted_label": "texting_phone",
+      "confidence": 0.3480004370212555,
+      "correct": false
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\other_activities\\img_23443.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\correct\\00013_img_23443.jpg",
+      "true_label": "other_activities",
+      "predicted_label": "other_activities",
+      "confidence": 0.9997941851615906,
+      "correct": true
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\safe_driving\\img_66097.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\incorrect\\00017_img_66097.jpg",
+      "true_label": "safe_driving",
+      "predicted_label": "other_activities",
+      "confidence": 0.7936179041862488,
+      "correct": false
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\texting_phone\\IMG_20240930_140125456_HDR_AE.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\incorrect\\00028_IMG_20240930_140125456_HDR_AE.jpg",
+      "true_label": "texting_phone",
+      "predicted_label": "other_activities",
+      "confidence": 0.9925357103347778,
+      "correct": false
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\safe_driving\\IMG_20240930_140042050_HDR_AE.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\incorrect\\00077_IMG_20240930_140042050_HDR_AE.jpg",
+      "true_label": "safe_driving",
+      "predicted_label": "other_activities",
+      "confidence": 0.919565737247467,
+      "correct": false
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\other_activities\\IMG_20241028_142730927_HDR_AE.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\incorrect\\00090_IMG_20241028_142730927_HDR_AE.jpg",
+      "true_label": "other_activities",
+      "predicted_label": "turning",
+      "confidence": 0.4344330132007599,
+      "correct": false
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\turning\\IMG_20240930_133013841_HDR_AE.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\incorrect\\00094_IMG_20240930_133013841_HDR_AE.jpg",
+      "true_label": "turning",
+      "predicted_label": "safe_driving",
+      "confidence": 0.5464990735054016,
+      "correct": false
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\other_activities\\img_21846.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\incorrect\\00147_img_21846.jpg",
+      "true_label": "other_activities",
+      "predicted_label": "safe_driving",
+      "confidence": 0.9156196713447571,
+      "correct": false
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\safe_driving\\img_71499.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\incorrect\\00185_img_71499.jpg",
+      "true_label": "safe_driving",
+      "predicted_label": "other_activities",
+      "confidence": 0.9099676609039307,
+      "correct": false
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\safe_driving\\IMG_20240930_133255159_HDR_AE.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\incorrect\\00197_IMG_20240930_133255159_HDR_AE.jpg",
+      "true_label": "safe_driving",
+      "predicted_label": "texting_phone",
+      "confidence": 0.6988294720649719,
+      "correct": false
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\other_activities\\IMG_3737.JPG",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\incorrect\\00207_IMG_3737.JPG",
+      "true_label": "other_activities",
+      "predicted_label": "safe_driving",
+      "confidence": 0.8974077701568604,
+      "correct": false
+    },
+    {
+      "image": "data\\raw\\module2_distraction\\Multi-Class Driver Behavior Image Dataset\\safe_driving\\IMG_20240930_141305811_HDR.jpg",
+      "copied_to": "models\\module2_distraction\\evaluation\\examples\\incorrect\\00242_IMG_20240930_141305811_HDR.jpg",
+      "true_label": "safe_driving",
+      "predicted_label": "other_activities",
+      "confidence": 0.6511049270629883,
+      "correct": false
+    }
+  ]
+}

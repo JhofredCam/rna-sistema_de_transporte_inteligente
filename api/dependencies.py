@@ -1,9 +1,15 @@
 # api/dependencies.py
 import os
+import sys
+from pathlib import Path
 
 import joblib
 import torch
 import torch.nn as nn
+
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.append(str(ROOT_DIR))
 
 
 # ============================================================
@@ -60,6 +66,7 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 # Variables globales para el Singleton
 _model = None
 _scalers = {}
+_distraction_classifier = None
 
 def get_demand_model_infra():
     """Carga el modelo y scalers una sola vez en memoria (Pattern Singleton)"""
@@ -85,3 +92,28 @@ def get_demand_model_infra():
             print(f"❌ Error cargando infraestructura de demanda: {e}")
 
     return _model, _scalers, DEVICE
+
+
+def get_distraction_classifier():
+    """Carga el clasificador de distracciones una sola vez si existe el checkpoint."""
+    global _distraction_classifier
+
+    if _distraction_classifier is None:
+        try:
+            from src.module2_distraction.classifier import DriverDistractionClassifier
+
+            checkpoint_path = ROOT_DIR / "models" / "module2_distraction" / "best_model.pth"
+            if not checkpoint_path.exists():
+                checkpoint_path = ROOT_DIR / "api" / "models" / "module2_distraction" / "best_model.pth"
+            if not checkpoint_path.exists():
+                return None
+            _distraction_classifier = DriverDistractionClassifier(
+                checkpoint_path=checkpoint_path,
+                device=DEVICE,
+            )
+            print(f"Modelo de distraccion cargado en {DEVICE}: {checkpoint_path}")
+        except Exception as e:
+            print(f"Error cargando modelo de distraccion: {e}")
+            return None
+
+    return _distraction_classifier

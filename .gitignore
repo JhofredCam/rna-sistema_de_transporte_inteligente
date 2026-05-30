@@ -4,4 +4,16 @@ __pycache__
 data/raw/*
 data/processed/*
 models/*
+!models/module2_distraction/
+models/module2_distraction/evaluation/examples/correct/
+models/module2_distraction/evaluation/examples/incorrect/
+!models/module2_distraction/best_model.pth
+!models/module2_distraction/metadata.json
+!models/module2_distraction/history.csv
+!models/module2_distraction/training_result.json
+!models/module2_distraction/evaluation/
+!models/module2_distraction/evaluation/metrics.json
+!models/module2_distraction/evaluation/classification_report.csv
+!models/module2_distraction/evaluation/examples/
+!models/module2_distraction/evaluation/examples/examples.json
 .ipynb_checkpoints
