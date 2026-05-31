@@ -82,17 +82,26 @@ export async function recommendDestinations(clientId) {
   const apiResult = await fetchRecommendations(clientId, 6);
   const rawRecs = apiResult.recommendations ?? [];
 
-  // Map API response to the format expected by the UI
-  const destinations = rawRecs.map((rec, idx) => {
+  if (!Array.isArray(rawRecs)) {
+    throw new Error('Respuesta inválida del recomendador');
+  }
+
+  // Map API response to the format expected by the UI.
+  // Do not invent placeholders when the backend omits fields.
+  const destinations = rawRecs
+    .map((rec) => {
     const meta = rec.metadata ?? {};
-    const name = rec.destination ?? `Destino ${rec.destination_id}`;
-    // Derive category from metadata or assign a default
+    const destinationId = rec.destination_id ?? null;
+    const name = rec.destination ?? null;
+    if (!destinationId || !name) return null;
+    // Derive category from metadata when available.
     const category = meta.Category || meta.category || meta.Type || meta.type || 'General';
     const icon = categoryIcons[category] || '📍';
     const match = Math.round(rec.score * 100);
-    const id = rec.destination_id || `rec-${idx}`;
+    const id = destinationId;
     return { id, name, icon, match, category };
-  });
+    })
+    .filter(Boolean);
 
   return destinations;
 }

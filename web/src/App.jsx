@@ -65,6 +65,7 @@ export default function App() {
     setModuleTab(tab || 'recommendation');
     setIsProcessing(true);
     setError(null);
+    setRecommendationResult(null);
     try {
       const destinations = await recommendDestinations(clientId);
       setRecommendationResult({ destinations, clientId });

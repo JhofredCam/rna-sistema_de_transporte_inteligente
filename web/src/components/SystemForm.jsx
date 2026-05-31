@@ -272,7 +272,7 @@ export default function SystemForm({
               type="text"
               value={clientId}
               onChange={(e) => setClientId(e.target.value)}
-              placeholder="Ej: CLIENTE-001"
+              placeholder="Ej: 1"
               className="w-full px-4 py-3 rounded-xl bg-surface-900/60 border border-surface-700/50
                 text-white placeholder-surface-200/30 focus:outline-none focus:ring-2
                 focus:ring-brand-500/50 focus:border-brand-500 transition-all hover:border-surface-200/30"
