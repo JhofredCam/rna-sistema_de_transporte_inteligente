@@ -57,6 +57,7 @@ const MetricCard = ({ icon, label, value, color }) => (
 const DemandResult = ({ result }) => {
   if (!result) return null;
   const { days, rmse, mae, routeName } = result;
+  const splitDay = days.findIndex((d) => d.real == null && d.predicted != null);
 
   return (
     <div className="space-y-6 animate-fade-in-up">
@@ -66,7 +67,7 @@ const DemandResult = ({ result }) => {
           Predicción de Demanda: {routeName}
         </h3>
         <p className="text-sm text-surface-200/40 mb-6">
-          30 días históricos + pronóstico de los siguientes 30 días
+          60 días históricos + pronóstico 30 días — la línea naranja en los primeros 60 días compara la predicción del modelo vs el valor real
         </p>
 
         <div className="h-72 sm:h-80">
@@ -83,10 +84,11 @@ const DemandResult = ({ result }) => {
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(168,153,132,0.15)" vertical={false} />
-              <ReferenceLine x={30.5} stroke="#fe8019" strokeDasharray="6 3" strokeWidth={2} label={{ value: 'Predicción →', position: 'insideTopRight', fill: '#fe8019', fontSize: 12 }} />
+              {splitDay > 0 && (
+                <ReferenceLine x={splitDay + 0.5} stroke="#fe8019" strokeDasharray="6 3" strokeWidth={2} label={{ value: 'Pronóstico →', position: 'insideTopRight', fill: '#fe8019', fontSize: 12 }} />
+              )}
               <XAxis
                 dataKey="day"
-                ticks={[1, 10, 20, 30, 40, 50, 60]}
                 tick={{ fill: '#ebdbb2', fontSize: 11 }}
                 axisLine={{ stroke: 'rgba(168,153,132,0.3)' }}
                 tickLine={false}
