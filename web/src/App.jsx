@@ -16,6 +16,7 @@ export default function App() {
   const [recommendationResult, setRecommendationResult] = useState(null);
   const [moduleTab, setModuleTab] = useState('demand');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState(null);
   const resultRef = useRef(null);
   const [showDocs, setShowDocs] = useState(false);
   const [serverStatus, setServerStatus] = useState('checking');
@@ -30,11 +31,13 @@ export default function App() {
     setModuleTab(tab || 'demand');
     if (routeId === null || routeId === undefined) return;
     setIsProcessing(true);
+    setError(null);
     try {
       const result = await predictDemand(routeId);
       setDemandResult(result);
-    } catch {
+    } catch (err) {
       setDemandResult(null);
+      setError(err?.message || 'Error al conectar con el servidor');
     }
     setIsProcessing(false);
     setTimeout(() => {
@@ -123,6 +126,11 @@ export default function App() {
             />
           </div>
 
+          {error && (
+            <div className="mb-6 p-4 rounded-2xl bg-red-900/20 border border-red-500/30 text-red-300 text-sm">
+              {error}
+            </div>
+          )}
           <ModuleResult
             ref={resultRef}
             demandResult={demandResult}
