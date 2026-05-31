@@ -15,7 +15,6 @@ export async function predictDemand(routeId) {
   const apiResult = await fetchDemandForecast(routeId, 30);
   const historyRows = apiResult.historico ?? [];
   const historicalPredRows = apiResult.prediccion_historica ?? [];
-  const forecastRows = apiResult.pronostico ?? [];
   const routeName = apiResult.ruta ?? ROUTES.find((r) => r.id === Number(routeId))?.name ?? 'Ruta A';
 
   const days = historyRows.map((r, i) => {
@@ -33,15 +32,6 @@ export async function predictDemand(routeId) {
     if (days[idx]) {
       days[idx].predicted = Math.round(r.prediccion);
     }
-  });
-
-  forecastRows.forEach((r, i) => {
-    const date = new Date(r.fecha);
-    days.push({
-      day: days.length + 1,
-      date: date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }),
-      predicted: Math.round(r.prediccion),
-    });
   });
 
   return { days, rmse: null, mae: null, routeName };
