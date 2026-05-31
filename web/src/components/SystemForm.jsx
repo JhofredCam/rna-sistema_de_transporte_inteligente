@@ -28,6 +28,8 @@ export default function SystemForm({
   const [dragOver, setDragOver] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [clientId, setClientId] = useState('');
+  const [topK, setTopK] = useState(6);
+  const [excludeSeen, setExcludeSeen] = useState(true);
   const fileInputRef = useRef(null);
 
   const handleTabChange = useCallback(
@@ -77,10 +79,15 @@ export default function SystemForm({
   const handleRecommend = (e) => {
     e.preventDefault();
     if (!clientId.trim()) return;
-    if (onRecommendDestinations) onRecommendDestinations(clientId.trim(), 'recommendation');
+    if (onRecommendDestinations)
+      onRecommendDestinations(clientId.trim(), 'recommendation', topK, excludeSeen);
   };
 
-  const handleRecommendReset = () => setClientId('');
+  const handleRecommendReset = () => {
+    setClientId('');
+    setTopK(6);
+    setExcludeSeen(true);
+  };
 
   return (
     <div className="space-y-6">
@@ -264,6 +271,7 @@ export default function SystemForm({
 
       {tab === 'recommendation' && (
         <form onSubmit={handleRecommend} className="space-y-6 pt-2">
+          {/* ── ID de cliente ── */}
           <div className="space-y-2">
             <label className="flex items-center text-sm font-medium text-surface-200">
               ID de Cliente
@@ -280,6 +288,64 @@ export default function SystemForm({
             <p className="text-xs text-surface-200/30">
               Ingresa un identificador único para generar recomendaciones personalizadas.
             </p>
+          </div>
+
+          {/* ── Número de recomendaciones ── */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-medium text-surface-200">
+                Número de recomendaciones
+              </label>
+              <span className="px-3 py-0.5 rounded-full bg-brand-600/20 border border-brand-500/30
+                text-brand-300 text-sm font-bold tabular-nums">
+                {topK}
+              </span>
+            </div>
+            <input
+              type="range"
+              min={1}
+              max={20}
+              value={topK}
+              onChange={(e) => setTopK(Number(e.target.value))}
+              className="w-full h-2 rounded-full appearance-none cursor-pointer
+                bg-surface-700/60 accent-brand-500"
+            />
+            <div className="flex justify-between text-xs text-surface-200/30">
+              <span>1</span>
+              <span>20</span>
+            </div>
+          </div>
+
+          {/* ── Excluir visitados ── */}
+          <div className="flex items-center justify-between px-4 py-3 rounded-xl
+            bg-surface-900/60 border border-surface-700/50">
+            <div>
+              <p className="text-sm font-medium text-surface-200">Excluir destinos visitados</p>
+              <p className="text-xs text-surface-200/30 mt-0.5">
+                Oculta destinos que el usuario ya tiene en su historial
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setExcludeSeen((prev) => !prev)}
+              className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full
+                border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none
+                ${
+                  excludeSeen
+                    ? 'bg-brand-600'
+                    : 'bg-surface-700'
+                }`}
+              role="switch"
+              aria-checked={excludeSeen}
+            >
+              <span
+                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full
+                  bg-white shadow ring-0 transition duration-200 ease-in-out
+                  ${
+                    excludeSeen ? 'translate-x-5' : 'translate-x-0'
+                  }`}
+              />
+            </button>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-2">

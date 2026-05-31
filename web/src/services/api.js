@@ -84,8 +84,12 @@ export async function checkServerHealth() {
   }
 }
 
-export async function fetchRecommendations(userId, topK = 6) {
-  const params = new URLSearchParams({ user_id: userId, top_k: String(topK) });
+export async function fetchRecommendations(userId, topK = 6, excludeSeen = true) {
+  const params = new URLSearchParams({
+    user_id: userId,
+    top_k: String(topK),
+    exclude_seen: String(excludeSeen),
+  });
   const res = await fetch(`${API_BASE}/recommender/recommend?${params}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },

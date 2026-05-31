@@ -61,13 +61,13 @@ export default function App() {
     }
   }, []);
 
-  const handleRecommendDestinations = useCallback(async (clientId, tab) => {
+  const handleRecommendDestinations = useCallback(async (clientId, tab, topK = 6, excludeSeen = true) => {
     setModuleTab(tab || 'recommendation');
     setIsProcessing(true);
     setError(null);
     setRecommendationResult(null);
     try {
-      const destinations = await recommendDestinations(clientId);
+      const destinations = await recommendDestinations(clientId, topK, excludeSeen);
       setRecommendationResult({ destinations, clientId });
     } catch (err) {
       setRecommendationResult(null);

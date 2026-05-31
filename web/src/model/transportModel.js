@@ -78,8 +78,8 @@ export const DESTINATIONS = [
   { id: 'd10', name: 'Mercado Municipal', icon: '🏪', match: 80, category: 'Comercio' },
 ];
 
-export async function recommendDestinations(clientId) {
-  const apiResult = await fetchRecommendations(clientId, 6);
+export async function recommendDestinations(clientId, topK = 6, excludeSeen = true) {
+  const apiResult = await fetchRecommendations(clientId, topK, excludeSeen);
   const rawRecs = apiResult.recommendations ?? [];
 
   if (!Array.isArray(rawRecs)) {
