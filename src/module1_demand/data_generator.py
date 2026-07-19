@@ -19,17 +19,17 @@ torch.manual_seed(SEED)
 NUM_DIAS = 1500
 FECHA_INICIO = datetime(2024, 1, 1)
 
-RUTAS = ["Ruta A", "Ruta B", "Ruta C", "Ruta D", "Ruta E"]
+RUTAS = ["Bogotá - Medellín", "Bogotá - Cali", "Bogotá - Cartagena", "Medellín - Cartagena", "Cali - Barranquilla"]
 
 # ============================================================
 # PARÁMETROS DE GENERACIÓN
 # ============================================================
 
 # --- Demanda base y tendencia ---
-DEMANDA_BASE = {"Ruta A": 1200, "Ruta B": 1800, "Ruta C": 800,
-                "Ruta D": 1500, "Ruta E": 1000}
-TREND_DRIFT = {"Ruta A": 0.10, "Ruta B": 0.15, "Ruta C": 0.05,
-               "Ruta D": 0.12, "Ruta E": 0.08}
+DEMANDA_BASE = {"Bogotá - Medellín": 1200, "Bogotá - Cali": 1800, "Bogotá - Cartagena": 800,
+                "Medellín - Cartagena": 1500, "Cali - Barranquilla": 1000}
+TREND_DRIFT = {"Bogotá - Medellín": 0.10, "Bogotá - Cali": 0.15, "Bogotá - Cartagena": 0.05,
+               "Medellín - Cartagena": 0.12, "Cali - Barranquilla": 0.08}
 
 # --- Estacionalidad semanal (base + ruido por ocurrencia) ---
 # La estructura base define el patrón general, pero cada día concreto

@@ -24,6 +24,14 @@ Mencionar el proceso de limpieza y selección de variables. -->
 <!-- COLOQUE AQUÍ LA FIGURA DE DISTRIBUCIÓN DE DEMANDA POR RUTA -->
 <!-- COLOQUE AQUÍ LA FIGURA DE VARIABLES MÁS IMPORTANTES DEL EDA -->
 
+### 2.2 Notebooks EDA del repositorio
+
+El análisis exploratorio completo por módulo está disponible en el repositorio:
+
+- Módulo 1 (demanda): [`notebooks/01_eda_demand.ipynb`](https://github.com/JhofredCam/rna-sistema_de_transporte_inteligente/blob/main/notebooks/01_eda_demand.ipynb)
+- Módulo 2 (distracción): [`notebooks/02_eda_images.ipynb`](https://github.com/JhofredCam/rna-sistema_de_transporte_inteligente/blob/main/notebooks/02_eda_images.ipynb)
+- Módulo 3 (recomendación): [`notebooks/03_eda_recommender.ipynb`](https://github.com/JhofredCam/rna-sistema_de_transporte_inteligente/blob/main/notebooks/03_eda_recommender.ipynb)
+
 ## 3. Metodología de modelamiento
 
 <!-- AQUÍ: Descripción de la metodología empleada para los tres módulos. Incluir
@@ -134,6 +142,12 @@ implementación de los tres módulos. Limitaciones identificadas y trabajo futur
 ## 8. Referencias
 
 <!-- AQUÍ: Lista de referencias bibliográficas y recursos utilizados en el proyecto. -->
+
+Documentos complementarios del repositorio:
+
+- [Enunciado del proyecto (`description.md`)](https://github.com/JhofredCam/rna-sistema_de_transporte_inteligente/blob/main/description.md)
+- [Reporte técnico integral (`docs/ReporteTecnico.md`)](https://github.com/JhofredCam/rna-sistema_de_transporte_inteligente/blob/main/docs/ReporteTecnico.md)
+- [Reflexión ética y sesgos (`docs/ethics/etica_y_sesgos.md`)](https://github.com/JhofredCam/rna-sistema_de_transporte_inteligente/blob/main/docs/ethics/etica_y_sesgos.md)
 
 <!-- Ejemplos de referencias (completar con las fuentes reales):
 - Kaggle. (s. f.). *Transportation Dataset*. ...

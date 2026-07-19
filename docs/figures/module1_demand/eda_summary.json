@@ -1,0 +1,699 @@
+{
+  "dataset": {
+    "archivo": "data\\demanda_transporte.csv",
+    "n_registros": 7500,
+    "n_rutas": 5,
+    "rutas": [
+      "Ruta A",
+      "Ruta B",
+      "Ruta C",
+      "Ruta D",
+      "Ruta E"
+    ],
+    "dias_por_ruta": {
+      "Ruta A": 1500,
+      "Ruta B": 1500,
+      "Ruta C": 1500,
+      "Ruta D": 1500,
+      "Ruta E": 1500
+    },
+    "fecha_inicio": "2024-01-01",
+    "fecha_fin": "2028-02-08",
+    "columnas": [
+      "fecha",
+      "ruta",
+      "pasajeros",
+      "viajes",
+      "dia_semana",
+      "mes",
+      "festivo",
+      "clima",
+      "dias_lluvia_consecutivos"
+    ],
+    "valores_nulos": {
+      "fecha": 0,
+      "ruta": 0,
+      "pasajeros": 0,
+      "viajes": 0,
+      "dia_semana": 0,
+      "mes": 0,
+      "festivo": 0,
+      "clima": 0,
+      "dias_lluvia_consecutivos": 0
+    }
+  },
+  "estadisticas_pasajeros": {
+    "global": {
+      "n": 7500,
+      "media": 1507.3576,
+      "desviacion_estandar": 596.5337638332741,
+      "min": 346,
+      "q25": 1055.0,
+      "mediana": 1402.0,
+      "q75": 1886.25,
+      "max": 4039,
+      "coef_variacion": 0.3957480055384827
+    },
+    "por_ruta": {
+      "Ruta A": {
+        "n": 1500,
+        "media": 1446.276,
+        "desviacion_estandar": 380.25158952754623,
+        "min": 585,
+        "q25": 1198.75,
+        "mediana": 1443.0,
+        "q75": 1657.25,
+        "max": 2836,
+        "coef_variacion": 0.2629177207722082
+      },
+      "Ruta B": {
+        "n": 1500,
+        "media": 2150.4286666666667,
+        "desviacion_estandar": 572.8046220148337,
+        "min": 830,
+        "q25": 1773.75,
+        "mediana": 2140.5,
+        "q75": 2474.25,
+        "max": 4039,
+        "coef_variacion": 0.2663676460855248
+      },
+      "Ruta C": {
+        "n": 1500,
+        "media": 950.8666666666667,
+        "desviacion_estandar": 263.41325184910886,
+        "min": 346,
+        "q25": 773.5,
+        "mediana": 944.0,
+        "q75": 1113.0,
+        "max": 1935,
+        "coef_variacion": 0.2770243832108696
+      },
+      "Ruta D": {
+        "n": 1500,
+        "media": 1794.1406666666667,
+        "desviacion_estandar": 475.7733056528113,
+        "min": 705,
+        "q25": 1483.0,
+        "mediana": 1799.0,
+        "q75": 2063.25,
+        "max": 3602,
+        "coef_variacion": 0.26518171874268387
+      },
+      "Ruta E": {
+        "n": 1500,
+        "media": 1195.076,
+        "desviacion_estandar": 323.1815585247922,
+        "min": 418,
+        "q25": 971.0,
+        "mediana": 1191.5,
+        "q75": 1374.0,
+        "max": 2795,
+        "coef_variacion": 0.2704276201051583
+      }
+    }
+  },
+  "estacionalidad_semanal": {
+    "media_global_referencia": 1507.3576,
+    "global": {
+      "Lunes": {
+        "n": 1075,
+        "media": 1670.8093023255815,
+        "factor": 1.108435916152598
+      },
+      "Martes": {
+        "n": 1075,
+        "media": 1738.1693023255814,
+        "factor": 1.15312338779171
+      },
+      "Miércoles": {
+        "n": 1070,
+        "media": 1744.2579439252336,
+        "factor": 1.1571626692466561
+      },
+      "Jueves": {
+        "n": 1070,
+        "media": 1675.2102803738317,
+        "factor": 1.1113555803704653
+      },
+      "Viernes": {
+        "n": 1070,
+        "media": 1597.7009345794393,
+        "factor": 1.0599349050148679
+      },
+      "Sábado": {
+        "n": 1070,
+        "media": 1125.9018691588785,
+        "factor": 0.7469374680294035
+      },
+      "Domingo": {
+        "n": 1070,
+        "media": 997.611214953271,
+        "factor": 0.6618278336562412
+      }
+    },
+    "por_ruta": {
+      "Ruta A": {
+        "Lunes": 1.0972237471222803,
+        "Martes": 1.1490489093818304,
+        "Miércoles": 1.160906116263844,
+        "Jueves": 1.1054850171047095,
+        "Viernes": 1.064961993397261,
+        "Sábado": 0.7509974117736037,
+        "Domingo": 0.670225998150377
+      },
+      "Ruta B": {
+        "Lunes": 1.11747541317686,
+        "Martes": 1.15447182266865,
+        "Miércoles": 1.1494969599642324,
+        "Jueves": 1.1130056483326496,
+        "Viernes": 1.0620920872340975,
+        "Sábado": 0.7448460591068242,
+        "Domingo": 0.6573412280407726
+      },
+      "Ruta C": {
+        "Lunes": 1.1055471222499589,
+        "Martes": 1.1584927010691184,
+        "Miércoles": 1.1612426374758296,
+        "Jueves": 1.1122415949771352,
+        "Viernes": 1.0533135535969482,
+        "Sábado": 0.7524370290818476,
+        "Domingo": 0.6554915305990731
+      },
+      "Ruta D": {
+        "Lunes": 1.1128084440727224,
+        "Martes": 1.1514899149793143,
+        "Miércoles": 1.1639159686638934,
+        "Jueves": 1.1170890836528766,
+        "Viernes": 1.0533978524353784,
+        "Sábado": 0.7402783828926099,
+        "Domingo": 0.659785314242214
+      },
+      "Ruta E": {
+        "Lunes": 1.1014732000697123,
+        "Martes": 1.1538081026587625,
+        "Miércoles": 1.1530412815727387,
+        "Jueves": 1.1061784269114485,
+        "Viernes": 1.0650517264252195,
+        "Sábado": 0.7514088260542489,
+        "Domingo": 0.6678455330240913
+      }
+    }
+  },
+  "estacionalidad_mensual": {
+    "media_global_referencia": 1507.3576,
+    "global": {
+      "Ene": {
+        "n": 775,
+        "media": 1327.5987096774193,
+        "factor": 0.8807456901251696
+      },
+      "Feb": {
+        "n": 605,
+        "media": 1307.8677685950413,
+        "factor": 0.8676559355225603
+      },
+      "Mar": {
+        "n": 620,
+        "media": 1366.7758064516129,
+        "factor": 0.9067362691186304
+      },
+      "Abr": {
+        "n": 600,
+        "media": 1385.005,
+        "factor": 0.9188297455096256
+      },
+      "May": {
+        "n": 620,
+        "media": 1446.0354838709677,
+        "factor": 0.9593181364999039
+      },
+      "Jun": {
+        "n": 600,
+        "media": 1760.4566666666667,
+        "factor": 1.16790910575345
+      },
+      "Jul": {
+        "n": 620,
+        "media": 1941.624193548387,
+        "factor": 1.288097922847496
+      },
+      "Ago": {
+        "n": 620,
+        "media": 1561.6629032258065,
+        "factor": 1.036026821522515
+      },
+      "Sep": {
+        "n": 600,
+        "media": 1379.6666666666667,
+        "factor": 0.9152882280002215
+      },
+      "Oct": {
+        "n": 620,
+        "media": 1394.2274193548387,
+        "factor": 0.9249480145619319
+      },
+      "Nov": {
+        "n": 600,
+        "media": 1325.885,
+        "factor": 0.8796087935603336
+      },
+      "Dic": {
+        "n": 620,
+        "media": 1925.8435483870967,
+        "factor": 1.2776288442683386
+      }
+    },
+    "por_ruta": {
+      "Ruta A": {
+        "Ene": 0.8829573331784527,
+        "Feb": 0.88031732406665,
+        "Mar": 0.9039846407757445,
+        "Abr": 0.9257626713942105,
+        "May": 0.9576820611315967,
+        "Jun": 1.16445616189441,
+        "Jul": 1.276861089022494,
+        "Ago": 1.0229330697509305,
+        "Sep": 0.9217811814619064,
+        "Oct": 0.9273650440521815,
+        "Nov": 0.8755993554019657,
+        "Dic": 1.2830393591942786
+      },
+      "Ruta B": {
+        "Ene": 0.8888310370686482,
+        "Feb": 0.8616617595749114,
+        "Mar": 0.9016094345500486,
+        "Abr": 0.9157437757371165,
+        "May": 0.955990940060933,
+        "Jun": 1.1721345170559792,
+        "Jul": 1.291411685830121,
+        "Ago": 1.0412627607840887,
+        "Sep": 0.9161235449800241,
+        "Oct": 0.9185227915498478,
+        "Nov": 0.88257209492805,
+        "Dic": 1.2749221003028224
+      },
+      "Ruta C": {
+        "Ene": 0.8717073049374312,
+        "Feb": 0.8727749021771062,
+        "Mar": 0.9022753436027801,
+        "Abr": 0.8916164201079716,
+        "May": 0.959498182755743,
+        "Jun": 1.1807736801514408,
+        "Jul": 1.3205609822844129,
+        "Ago": 1.046405316711636,
+        "Sep": 0.914656804318867,
+        "Oct": 0.9197636338552493,
+        "Nov": 0.8666567342073898,
+        "Dic": 1.2775866046368565
+      },
+      "Ruta D": {
+        "Ene": 0.8806480344422473,
+        "Feb": 0.8712750965892091,
+        "Mar": 0.9204514370140672,
+        "Abr": 0.9311049932539663,
+        "May": 0.9540914072967822,
+        "Jun": 1.1678617915875047,
+        "Jul": 1.2754376279650865,
+        "Ago": 1.0225714911098722,
+        "Sep": 0.924769555415759,
+        "Oct": 0.9295626368755133,
+        "Nov": 0.8730642078974856,
+        "Dic": 1.2725563851869972
+      },
+      "Ruta E": {
+        "Ene": 0.870858368408261,
+        "Feb": 0.8536128509023349,
+        "Mar": 0.9022506221496616,
+        "Abr": 0.9192162953095312,
+        "May": 0.974988606474373,
+        "Jun": 1.1543198926260756,
+        "Jul": 1.288911143888379,
+        "Ago": 1.0543937332531907,
+        "Sep": 0.8921956985720293,
+        "Oct": 0.9307816730565063,
+        "Nov": 0.8992594055385041,
+        "Dic": 1.2836003735327293
+      }
+    }
+  },
+  "impacto_clima": {
+    "media_global_referencia": 1507.3576,
+    "por_categoria": {
+      "Lluvia": {
+        "n": 1952,
+        "media": 1386.6331967213114,
+        "factor": 0.9199099117033087
+      },
+      "Nublado": {
+        "n": 1924,
+        "media": 1484.2281704781706,
+        "factor": 0.9846556454010452
+      },
+      "Soleado": {
+        "n": 3624,
+        "media": 1584.6630794701987,
+        "factor": 1.0512854278707313
+      }
+    },
+    "lluvia_consecutiva": {
+      "sin_lluvia": {
+        "n": 5548,
+        "media": 1549.8330930064888,
+        "factor": 1.028178776560047
+      },
+      "lluvia_dia_1": {
+        "n": 1501,
+        "media": 1384.7395069953363,
+        "factor": 0.9186536141094431
+      },
+      "lluvia_dia_2": {
+        "n": 346,
+        "media": 1401.728323699422,
+        "factor": 0.9299242088933787
+      },
+      "lluvia_dia_3_o_mas": {
+        "n": 105,
+        "media": 1363.9619047619049,
+        "factor": 0.9048694913283383
+      },
+      "efecto_incremental_dia3_vs_dia1_pct": -1.5004700976948049
+    }
+  },
+  "efecto_festivo": {
+    "no_festivo": {
+      "n": 7395,
+      "media": 1501.1035835023665,
+      "factor": 0.9958510067567022
+    },
+    "festivo": {
+      "n": 105,
+      "media": 1947.8190476190475,
+      "factor": 1.2922076669922569
+    }
+  },
+  "tendencia": {
+    "ventana_media_movil_dias": 30,
+    "por_ruta": {
+      "Ruta A": {
+        "pendiente_pasajeros_por_dia": 0.12192216974318669,
+        "pendiente_pasajeros_por_anio": 44.50159195626314,
+        "pendiente_relativa_pct_por_anio": 3.076977835230837,
+        "intercepto": 1354.8953337774813,
+        "r2": 0.01928919016108147
+      },
+      "Ruta B": {
+        "pendiente_pasajeros_por_dia": 0.1929510493115782,
+        "pendiente_pasajeros_por_anio": 70.42713299872604,
+        "pendiente_relativa_pct_por_anio": 3.2750276300907775,
+        "intercepto": 2005.8118552076387,
+        "r2": 0.021289818906988264
+      },
+      "Ruta C": {
+        "pendiente_pasajeros_por_dia": 0.06102201112089379,
+        "pendiente_pasajeros_por_anio": 22.273034059126232,
+        "pendiente_relativa_pct_por_anio": 2.3423929810481208,
+        "intercepto": 905.1306693315569,
+        "r2": 0.010069050040236314
+      },
+      "Ruta D": {
+        "pendiente_pasajeros_por_dia": 0.14492018352008204,
+        "pendiente_pasajeros_por_anio": 52.895866984829944,
+        "pendiente_relativa_pct_por_anio": 2.9482563974822082,
+        "intercepto": 1685.5229891183649,
+        "r2": 0.017407977364742575
+      },
+      "Ruta E": {
+        "pendiente_pasajeros_por_dia": 0.10646958687537268,
+        "pendiente_pasajeros_por_anio": 38.86139920951103,
+        "pendiente_relativa_pct_por_anio": 3.2517931252498604,
+        "intercepto": 1115.2770446369082,
+        "r2": 0.020363325395802403
+      }
+    },
+    "global": {
+      "pendiente_pasajeros_por_dia": 0.12545700011422128,
+      "pendiente_pasajeros_por_anio": 45.79180504169077,
+      "pendiente_relativa_pct_por_anio": 3.0378859695728977,
+      "intercepto": 1413.3275784143912,
+      "r2": 0.020739390742044023
+    }
+  },
+  "acf_pacf": {
+    "ruta": "Ruta A",
+    "criterio_eleccion": "media de pasajeros mas cercana a la media global",
+    "n_observaciones": 1500,
+    "n_rezagos": 40,
+    "cota_significancia_95pct": 0.05060698239044358,
+    "rezagos_significativos_acf": [
+      {
+        "rezago": 1,
+        "valor": 0.5220981584493999
+      },
+      {
+        "rezago": 2,
+        "valor": 0.12891655472428362
+      },
+      {
+        "rezago": 5,
+        "valor": 0.0972194331483748
+      },
+      {
+        "rezago": 6,
+        "valor": 0.4545718654725041
+      },
+      {
+        "rezago": 7,
+        "valor": 0.743678905023324
+      },
+      {
+        "rezago": 8,
+        "valor": 0.4301076979178374
+      },
+      {
+        "rezago": 9,
+        "valor": 0.05835483646775129
+      },
+      {
+        "rezago": 10,
+        "valor": -0.07624579581353604
+      },
+      {
+        "rezago": 11,
+        "valor": -0.08918348041219806
+      },
+      {
+        "rezago": 13,
+        "valor": 0.39658873386963084
+      },
+      {
+        "rezago": 14,
+        "valor": 0.6960577471419805
+      },
+      {
+        "rezago": 15,
+        "valor": 0.3806967963646931
+      },
+      {
+        "rezago": 17,
+        "valor": -0.1236243318892506
+      },
+      {
+        "rezago": 18,
+        "valor": -0.13246862984586605
+      },
+      {
+        "rezago": 20,
+        "valor": 0.34111185444070613
+      },
+      {
+        "rezago": 21,
+        "valor": 0.6404738575986663
+      },
+      {
+        "rezago": 22,
+        "valor": 0.3291683269594132
+      },
+      {
+        "rezago": 24,
+        "valor": -0.1695080603871288
+      },
+      {
+        "rezago": 25,
+        "valor": -0.17976287613286096
+      },
+      {
+        "rezago": 26,
+        "valor": -0.06104666335987809
+      },
+      {
+        "rezago": 27,
+        "valor": 0.28037705519981415
+      },
+      {
+        "rezago": 28,
+        "valor": 0.5763939388708941
+      },
+      {
+        "rezago": 29,
+        "valor": 0.2627663296551021
+      },
+      {
+        "rezago": 30,
+        "valor": -0.10212772830314192
+      },
+      {
+        "rezago": 31,
+        "valor": -0.23625310084730683
+      },
+      {
+        "rezago": 32,
+        "valor": -0.23520400577303918
+      },
+      {
+        "rezago": 33,
+        "valor": -0.10858416588329814
+      },
+      {
+        "rezago": 34,
+        "valor": 0.24174274947692306
+      },
+      {
+        "rezago": 35,
+        "valor": 0.5401564610966015
+      },
+      {
+        "rezago": 36,
+        "valor": 0.22682162208483975
+      },
+      {
+        "rezago": 37,
+        "valor": -0.13522774828249098
+      },
+      {
+        "rezago": 38,
+        "valor": -0.257666171301371
+      },
+      {
+        "rezago": 39,
+        "valor": -0.26042257466518715
+      },
+      {
+        "rezago": 40,
+        "valor": -0.1361892574913427
+      }
+    ],
+    "rezagos_significativos_pacf": [
+      {
+        "rezago": 1,
+        "valor": 0.5220981584493999
+      },
+      {
+        "rezago": 2,
+        "valor": -0.197507923313877
+      },
+      {
+        "rezago": 5,
+        "valor": 0.15170004938521206
+      },
+      {
+        "rezago": 6,
+        "valor": 0.47185626045771456
+      },
+      {
+        "rezago": 7,
+        "valor": 0.5269997731391394
+      },
+      {
+        "rezago": 8,
+        "valor": -0.15387037764801337
+      },
+      {
+        "rezago": 9,
+        "valor": -0.16266374073388143
+      },
+      {
+        "rezago": 10,
+        "valor": -0.05999970539805782
+      },
+      {
+        "rezago": 11,
+        "valor": -0.05142083414808878
+      },
+      {
+        "rezago": 13,
+        "valor": 0.11303977590009091
+      },
+      {
+        "rezago": 14,
+        "valor": 0.31317219904957405
+      },
+      {
+        "rezago": 15,
+        "valor": -0.12667058122985755
+      },
+      {
+        "rezago": 16,
+        "valor": -0.12156352893624249
+      },
+      {
+        "rezago": 19,
+        "valor": -0.05783180067501829
+      },
+      {
+        "rezago": 21,
+        "valor": 0.20218538797520108
+      },
+      {
+        "rezago": 22,
+        "valor": -0.09503791642364619
+      },
+      {
+        "rezago": 24,
+        "valor": -0.06111494872671061
+      },
+      {
+        "rezago": 26,
+        "valor": -0.051609888402534346
+      },
+      {
+        "rezago": 28,
+        "valor": 0.12360391193663274
+      },
+      {
+        "rezago": 29,
+        "valor": -0.11678036889841982
+      },
+      {
+        "rezago": 30,
+        "valor": -0.0683334919208681
+      },
+      {
+        "rezago": 35,
+        "valor": 0.1265582701316112
+      },
+      {
+        "rezago": 36,
+        "valor": -0.08366660578844558
+      }
+    ]
+  },
+  "descomposicion_estacional": {
+    "ruta": "Ruta A",
+    "modelo": "aditivo",
+    "periodo": 7,
+    "fuerza_tendencia": 0.6718823485054678,
+    "fuerza_estacionalidad_semanal": 0.7555012640305735,
+    "varianza_residuo_pct_sobre_serie": 16.29080438533564,
+    "amplitud_estacional_media_abs": 239.18811655282263
+  },
+  "figuras": [
+    "docs\\figures\\module1_demand\\serie_tiempo_por_ruta.png",
+    "docs\\figures\\module1_demand\\distribucion_pasajeros.png",
+    "docs\\figures\\module1_demand\\estacionalidad_semanal.png",
+    "docs\\figures\\module1_demand\\estacionalidad_mensual.png",
+    "docs\\figures\\module1_demand\\impacto_clima.png",
+    "docs\\figures\\module1_demand\\tendencia.png",
+    "docs\\figures\\module1_demand\\acf_pacf.png",
+    "docs\\figures\\module1_demand\\descomposicion_estacional.png"
+  ]
+}

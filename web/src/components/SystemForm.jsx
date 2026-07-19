@@ -7,8 +7,12 @@ import {
   MapPin,
   Upload,
   FileImage,
+  Compass,
+  DollarSign,
+  Clock,
+  Heart,
 } from 'lucide-react';
-import { ROUTES, DRIVER_CLASSES } from '../model/transportModel';
+import { ROUTES, DRIVER_CLASSES, PREFERENCE_OPTIONS } from '../model/transportModel';
 
 const TABS = [
   { id: 'demand', label: 'Predicción de Demanda', icon: TrendingUp },
@@ -27,7 +31,12 @@ export default function SystemForm({
   const [selectedRoute, setSelectedRoute] = useState(0);
   const [dragOver, setDragOver] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [clientId, setClientId] = useState('');
+  const [preferences, setPreferences] = useState({
+    tripType: '',
+    budget: '',
+    duration: '',
+    interests: [],
+  });
   const fileInputRef = useRef(null);
 
   const handleTabChange = useCallback(
@@ -76,11 +85,19 @@ export default function SystemForm({
 
   const handleRecommend = (e) => {
     e.preventDefault();
-    if (!clientId.trim()) return;
-    if (onRecommendDestinations) onRecommendDestinations(clientId.trim(), 'recommendation');
+    if (onRecommendDestinations) onRecommendDestinations(preferences, 'recommendation');
   };
 
-  const handleRecommendReset = () => setClientId('');
+  const handleRecommendReset = () => setPreferences({ tripType: '', budget: '', duration: '', interests: [] });
+
+  const toggleInterest = (value) => {
+    setPreferences((prev) => ({
+      ...prev,
+      interests: prev.interests.includes(value)
+        ? prev.interests.filter((i) => i !== value)
+        : [...prev.interests, value],
+    }));
+  };
 
   return (
     <div className="space-y-6">
@@ -265,29 +282,103 @@ export default function SystemForm({
       {tab === 'recommendation' && (
         <form onSubmit={handleRecommend} className="space-y-6 pt-2">
           <div className="space-y-2">
-            <label className="flex items-center text-sm font-medium text-surface-200">
-              ID de Cliente
+            <label className="flex items-center gap-2 text-sm font-medium text-surface-200">
+              <Compass className="w-4 h-4 text-brand-400" />
+              Tipo de viaje
             </label>
-            <input
-              type="text"
-              value={clientId}
-              onChange={(e) => setClientId(e.target.value)}
-              placeholder="Ej: CLIENTE-001"
-              className="w-full px-4 py-3 rounded-xl bg-surface-900/60 border border-surface-700/50
-                text-white placeholder-surface-200/30 focus:outline-none focus:ring-2
-                focus:ring-brand-500/50 focus:border-brand-500 transition-all hover:border-surface-200/30"
-            />
-            <p className="text-xs text-surface-200/30">
-              Ingresa un identificador único para generar recomendaciones personalizadas.
-            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {PREFERENCE_OPTIONS.tripType.map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setPreferences((p) => ({ ...p, tripType: p.tripType === opt.value ? '' : opt.value }))}
+                  className={`px-3 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
+                    preferences.tripType === opt.value
+                      ? 'bg-brand-600/20 border-brand-500 text-brand-300'
+                      : 'bg-surface-900/40 border-surface-700/50 text-surface-200/60 hover:border-surface-200/30'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="flex items-center gap-2 text-sm font-medium text-surface-200">
+              <DollarSign className="w-4 h-4 text-brand-400" />
+              Presupuesto
+            </label>
+            <div className="grid grid-cols-3 gap-2">
+              {PREFERENCE_OPTIONS.budget.map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setPreferences((p) => ({ ...p, budget: p.budget === opt.value ? '' : opt.value }))}
+                  className={`px-3 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
+                    preferences.budget === opt.value
+                      ? 'bg-brand-600/20 border-brand-500 text-brand-300'
+                      : 'bg-surface-900/40 border-surface-700/50 text-surface-200/60 hover:border-surface-200/30'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="flex items-center gap-2 text-sm font-medium text-surface-200">
+              <Clock className="w-4 h-4 text-brand-400" />
+              Duración del viaje
+            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              {PREFERENCE_OPTIONS.duration.map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setPreferences((p) => ({ ...p, duration: p.duration === opt.value ? '' : opt.value }))}
+                  className={`px-3 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
+                    preferences.duration === opt.value
+                      ? 'bg-brand-600/20 border-brand-500 text-brand-300'
+                      : 'bg-surface-900/40 border-surface-700/50 text-surface-200/60 hover:border-surface-200/30'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="flex items-center gap-2 text-sm font-medium text-surface-200">
+              <Heart className="w-4 h-4 text-brand-400" />
+              Intereses (selecciona varios)
+            </label>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {PREFERENCE_OPTIONS.interests.map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => toggleInterest(opt.value)}
+                  className={`px-3 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
+                    preferences.interests.includes(opt.value)
+                      ? 'bg-brand-600/20 border-brand-500 text-brand-300'
+                      : 'bg-surface-900/40 border-surface-700/50 text-surface-200/60 hover:border-surface-200/30'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-2">
             <button
               type="submit"
-              disabled={isProcessing || !clientId.trim()}
+              disabled={isProcessing}
               className={`btn-primary flex-1 flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-lg transition-all duration-300 cursor-pointer ${
-                isProcessing || !clientId.trim()
+                isProcessing
                   ? 'bg-brand-700/50 text-brand-200/50 cursor-wait'
                   : 'bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 hover:shadow-xl hover:shadow-brand-500/20 hover:scale-[1.02]'
               }`}

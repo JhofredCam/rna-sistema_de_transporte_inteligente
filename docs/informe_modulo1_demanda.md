@@ -41,7 +41,7 @@
 | **MAE** | 125.86 pasajeros |
 | **MAPE** | 7.77 % |
 
-El modelo logra un error porcentual absoluto medio inferior al 8% en las 5 rutas del sistema, con un desempeño consistente donde la ruta de mayor demanda (Ruta B, promedio 2,150 pasajeros) presenta el RMSE más alto (241.24) pero mantiene un MAPE competitivo de 7.65%, mientras que la ruta de menor demanda (Ruta C, promedio 951 pasajeros) exhibe el RMSE más bajo (108.40) con un MAPE de 8.21%.
+El modelo logra un error porcentual absoluto medio inferior al 8% en las 5 rutas del sistema, con un desempeño consistente donde la ruta de mayor demanda (Bogotá - Cali, promedio 2,150 pasajeros) presenta el RMSE más alto (241.24) pero mantiene un MAPE competitivo de 7.65%, mientras que la ruta de menor demanda (Bogotá - Cartagena, promedio 951 pasajeros) exhibe el RMSE más bajo (108.40) con un MAPE de 8.21%.
 
 **Conclusión de Negocio:** Un MAPE global de 7.77% en un horizonte de 30 días representa una precisión operativamente útil para la planificación de flota, permitiendo reducir el exceso de capacidad en un ~15-20% estimado frente a modelos ingenuos de media histórica. La arquitectura con atención temporal permite además interpretar qué días del contexto pasado son más relevantes para cada predicción, proporcionando trazabilidad a los operadores.
 
@@ -203,7 +203,7 @@ El pipeline de preprocesamiento (`preprocessor.py`) implementa:
 
 1. **Carga y ordenamiento:** Lectura del CSV, parseo de fechas, ordenamiento por (ruta, fecha).
 2. **Codificación de categóricas:**
-   - `ruta` → `route_id`: LabelEncoder (0–4 para Ruta A–E)
+   - `ruta` → `route_id`: LabelEncoder (0–4 para las rutas interurbanas colombianas)
    - `clima` → `clima_id`: LabelEncoder (0–2 para Lluvia, Nublado, Soleado)
 3. **Split temporal correcto (80/20 por ruta):** Se respeta la cronología separando las primeras 1,200 observaciones para entrenamiento y las últimas 300 para prueba en cada ruta, evitando leakage de información futura.
 4. **Escalado sin leakage:**
@@ -385,17 +385,17 @@ Métrica relativa que permite comparar rutas con diferentes escalas de demanda.
 
 | Ruta | Demanda Media | RMSE | MAE | MAPE |
 |:-----|:--------------|:-----|:----|:-----|
-| **Ruta A** | 1,446 | 156.15 | 116.03 | 7.53 % |
-| **Ruta B** | 2,150 | 241.24 | 181.25 | 7.65 % |
-| **Ruta C** | 951 | 108.40 | 83.37 | 8.21 % |
-| **Ruta D** | 1,794 | 196.47 | 143.69 | 7.23 % |
-| **Ruta E** | 1,195 | 147.15 | 104.97 | 8.22 % |
+| **Bogotá - Medellín** | 1,446 | 156.15 | 116.03 | 7.53 % |
+| **Bogotá - Cali** | 2,150 | 241.24 | 181.25 | 7.65 % |
+| **Bogotá - Cartagena** | 951 | 108.40 | 83.37 | 8.21 % |
+| **Medellín - Cartagena** | 1,794 | 196.47 | 143.69 | 7.23 % |
+| **Cali - Barranquilla** | 1,195 | 147.15 | 104.97 | 8.22 % |
 
 **Análisis por ruta:**
 
-- **Ruta B** (mayor demanda, 2,150 media) presenta el RMSE más alto (241.24), lo cual es esperable por su mayor varianza absoluta. Sin embargo, su MAPE de 7.65% es el segundo mejor, indicando buena precisión relativa.
-- **Ruta C** (menor demanda, 951 media) tiene el RMSE más bajo (108.40) pero el MAPE más alto (8.21%), reflejando que el error absoluto bajo es menos impresionante cuando la demanda base es pequeña.
-- **Ruta D** logra el mejor MAPE (7.23%), sugiriendo que su patrón de demanda es más predecible.
+- **Bogotá - Cali** (mayor demanda, 2,150 media) presenta el RMSE más alto (241.24), lo cual es esperable por su mayor varianza absoluta. Sin embargo, su MAPE de 7.65% es el segundo mejor, indicando buena precisión relativa.
+- **Bogotá - Cartagena** (menor demanda, 951 media) tiene el RMSE más bajo (108.40) pero el MAPE más alto (8.21%), reflejando que el error absoluto bajo es menos impresionante cuando la demanda base es pequeña.
+- **Medellín - Cartagena** logra el mejor MAPE (7.23%), sugiriendo que su patrón de demanda es más predecible.
 - **Rango de MAPE:** 7.23% – 8.22% (amplitud < 1 p.p.), lo que demuestra consistencia del modelo a través de rutas con diferentes escalas.
 
 *Imagen: `models/demand/prediccion_vs_real_por_ruta.png` — Predicción vs. Demanda Real por Ruta (serie temporal).*
@@ -406,11 +406,11 @@ Métrica relativa que permite comparar rutas con diferentes escalas de demanda.
 
 | Ruta | Error Medio | Q25 | Q50 (Mediana) | Q75 | Máximo |
 |:-----|:------------|:----|:--------------|:----|:-------|
-| **Ruta A** | 116.0 | 42.7 | 90.3 | 160.7 | 542.1 |
-| **Ruta B** | 181.3 | 69.1 | 143.6 | 247.5 | 744.3 |
-| **Ruta C** | 83.4 | 29.5 | 62.5 | 115.8 | 378.6 |
-| **Ruta D** | 143.7 | 52.8 | 107.7 | 199.1 | 632.2 |
-| **Ruta E** | 105.0 | 35.4 | 76.1 | 146.5 | 494.8 |
+| **Bogotá - Medellín** | 116.0 | 42.7 | 90.3 | 160.7 | 542.1 |
+| **Bogotá - Cali** | 181.3 | 69.1 | 143.6 | 247.5 | 744.3 |
+| **Bogotá - Cartagena** | 83.4 | 29.5 | 62.5 | 115.8 | 378.6 |
+| **Medellín - Cartagena** | 143.7 | 52.8 | 107.7 | 199.1 | 632.2 |
+| **Cali - Barranquilla** | 105.0 | 35.4 | 76.1 | 146.5 | 494.8 |
 
 #### 5.5.5 Pronóstico Autorregresivo Multi-step
 
@@ -467,7 +467,7 @@ El Módulo 1 se integra en la plataforma web a través de una arquitectura clien
 
 El dashboard de demanda en el frontend React (`SystemForm.jsx`) proporciona:
 
-- **Selector de ruta:** Dropdown con las 5 rutas (Ruta A–E).
+- **Selector de ruta:** Dropdown con las 5 rutas interurbanas colombianas.
 - **Botón de predicción:** Ejecuta la inferencia y despliega el resultado.
 - **Visualización interactiva:** Gráfico de área (Recharts) mostrando la predicción a 30 días con etiquetas de valores.
 - **Métricas:** RMSE y MAPE esperados para la ruta seleccionada, basados en los resultados de evaluación.

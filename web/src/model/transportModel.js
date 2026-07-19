@@ -1,21 +1,22 @@
 import {
   fetchDemandForecast,
   fetchDriverClassification,
+  fetchRecommendations,
 } from '../services/api';
 
 export const ROUTES = [
-  { id: 0, name: 'Ruta A' },
-  { id: 1, name: 'Ruta B' },
-  { id: 2, name: 'Ruta C' },
-  { id: 3, name: 'Ruta D' },
-  { id: 4, name: 'Ruta E' },
+  { id: 0, name: 'Bogotá - Medellín' },
+  { id: 1, name: 'Bogotá - Cali' },
+  { id: 2, name: 'Bogotá - Cartagena' },
+  { id: 3, name: 'Medellín - Cartagena' },
+  { id: 4, name: 'Cali - Barranquilla' },
 ];
 
 export async function predictDemand(routeId) {
   const apiResult = await fetchDemandForecast(routeId, 30);
   const historyRows = apiResult.historico ?? [];
   const historicalPredRows = apiResult.prediccion_historica ?? [];
-  const routeName = apiResult.ruta ?? ROUTES.find((r) => r.id === Number(routeId))?.name ?? 'Ruta A';
+  const routeName = apiResult.ruta ?? ROUTES.find((r) => r.id === Number(routeId))?.name ?? 'Bogotá - Medellín';
 
   const days = historyRows.map((r, i) => {
     const date = new Date(r.fecha);
@@ -64,25 +65,47 @@ export async function classifyDriver(file) {
   };
 }
 
-export const DESTINATIONS = [
-  { id: 'd1', name: 'Centro Histórico', icon: '🏛️', match: 95, category: 'Cultura' },
-  { id: 'd2', name: 'Malecón Turístico', icon: '🌊', match: 88, category: 'Turismo' },
-  { id: 'd3', name: 'Zona Comercial Norte', icon: '🛍️', match: 82, category: 'Compras' },
-  { id: 'd4', name: 'Parque Industrial', icon: '🏭', match: 76, category: 'Negocios' },
-  { id: 'd5', name: 'Plaza Central', icon: '⛲', match: 91, category: 'Recreación' },
-  { id: 'd6', name: 'Terminal de Autobuses', icon: '🚌', match: 73, category: 'Transporte' },
-  { id: 'd7', name: 'Hospital General', icon: '🏥', match: 68, category: 'Salud' },
-  { id: 'd8', name: 'Ciudad Universitaria', icon: '🎓', match: 85, category: 'Educación' },
-  { id: 'd9', name: 'Estadio Olímpico', icon: '🏟️', match: 78, category: 'Deportes' },
-  { id: 'd10', name: 'Mercado Municipal', icon: '🏪', match: 80, category: 'Comercio' },
-];
+export const PREFERENCE_OPTIONS = {
+  tripType: [
+    { value: 'playa', label: 'Playa y costa' },
+    { value: 'montaña', label: 'Montaña y senderismo' },
+    { value: 'ciudad', label: 'Ciudad y cultura' },
+    { value: 'aventura', label: 'Aventura y ecoturismo' },
+    { value: 'espiritual', label: 'Espiritual y patrimonio' },
+  ],
+  budget: [
+    { value: 'bajo', label: 'Económico' },
+    { value: 'medio', label: 'Moderado' },
+    { value: 'alto', label: 'Premium' },
+  ],
+  duration: [
+    { value: 'corto', label: 'Fin de semana (2-3 días)' },
+    { value: 'medio', label: 'Semana (5-7 días)' },
+    { value: 'largo', label: 'Quincena o más' },
+  ],
+  interests: [
+    { value: 'gastronomía', label: 'Gastronomía' },
+    { value: 'historia', label: 'Historia y patrimonio' },
+    { value: 'ecoturismo', label: 'Ecoturismo' },
+    { value: 'buceo', label: 'Buceo y deportes acuáticos' },
+    { value: 'senderismo', label: 'Senderismo' },
+    { value: 'cultura', label: 'Arte y cultura' },
+  ],
+};
 
-export function recommendDestinations() {
-  const shuffled = [...DESTINATIONS].sort(() => Math.random() - 0.5);
-  const numRecs = 3 + Math.floor(Math.random() * 3);
-  return shuffled.slice(0, numRecs).map((d) => ({
-    ...d,
-    match: Math.max(58, d.match - Math.floor(Math.random() * 18)),
+export async function recommendDestinations(preferences) {
+  const apiResult = await fetchRecommendations(preferences);
+  const recommendations = apiResult.recommendations || [];
+
+  return recommendations.map((rec) => ({
+    id: rec.destination_id || `d${rec.rank}`,
+    name: rec.destination,
+    icon: '📍',
+    match: Math.round(rec.score * 100) || 85,
+    category: rec.metadata?.Type || rec.metadata?.type || 'Destino',
+    score: rec.score,
+    content_score: rec.content_score,
+    metadata: rec.metadata,
   }));
 }
 

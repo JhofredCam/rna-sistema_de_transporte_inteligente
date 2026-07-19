@@ -73,6 +73,27 @@ export async function fetchDriverClassification(file) {
   return res.json();
 }
 
+export async function fetchRecommendations(preferences) {
+  const body = {
+    trip_type: preferences.tripType || null,
+    budget: preferences.budget || null,
+    interests: preferences.interests || null,
+    user_id: preferences.userId || null,
+    top_k: preferences.topK || 6,
+  };
+
+  const res = await fetch(`${API_BASE}/recommender/recommend`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || `Error ${res.status}`);
+  }
+  return res.json();
+}
+
 export async function checkServerHealth() {
   try {
     const res = await fetch(`${API_BASE}/`);

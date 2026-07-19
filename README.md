@@ -22,6 +22,7 @@ personalizacion de la experiencia de viaje.
 - [API](#api)
 - [Entrenamiento y evaluacion](#entrenamiento-y-evaluacion)
 - [Datos y artefactos](#datos-y-artefactos)
+- [Analisis exploratorio de datos](#analisis-exploratorio-de-datos)
 - [Limitaciones](#limitaciones)
 - [Documentacion](#documentacion)
 
@@ -36,9 +37,9 @@ capacidades:
 | Distraccion | Clasificar imagenes de cabina del conductor | Transfer learning con `mobilenet_v3_small` |
 | Recomendacion | Sugerir destinos personalizados | Recomendador neuronal hibrido con embeddings de usuario/destino y variables de contenido |
 
-La API y el frontend permiten probar los modulos de demanda y distraccion. El
-modulo recomendador esta implementado, entrenado y evaluado desde scripts, pero
-su endpoint productivo aun esta pendiente de integracion.
+La API y el frontend permiten probar los tres modulos: demanda, distraccion y
+recomendacion. El recomendador esta integrado a la API y al frontend con un
+formulario de preferencias para usuarios nuevos.
 
 ## Resultados principales
 
@@ -55,11 +56,11 @@ Metricas por ruta para demanda:
 
 | Ruta | RMSE | MAE | MAPE |
 |---|---:|---:|---:|
-| Ruta A | 156.15 | 116.03 | 7.53% |
-| Ruta B | 241.24 | 181.25 | 7.65% |
-| Ruta C | 108.40 | 83.37 | 8.21% |
-| Ruta D | 196.47 | 143.69 | 7.23% |
-| Ruta E | 147.15 | 104.97 | 8.22% |
+| Bogotá - Medellín | 156.15 | 116.03 | 7.53% |
+| Bogotá - Cali | 241.24 | 181.25 | 7.65% |
+| Bogotá - Cartagena | 108.40 | 83.37 | 8.21% |
+| Medellín - Cartagena | 196.47 | 143.69 | 7.23% |
+| Cali - Barranquilla | 147.15 | 104.97 | 8.22% |
 
 ## Arquitectura
 
@@ -100,6 +101,9 @@ Capas principales:
 |-- docs/                        # Reportes tecnicos
 |-- models/                      # Modelos entrenados y metricas
 |-- notebooks/                   # EDA por modulo
+|   |-- 01_eda_demand.ipynb      # EDA de demanda
+|   |-- 02_eda_images.ipynb      # EDA de distraccion
+|   `-- 03_eda_recommender.ipynb # EDA de recomendacion
 |-- scripts/                     # Entrenamiento, evaluacion, descarga y prediccion
 |-- src/
 |   |-- module1_demand/          # Prediccion de demanda
@@ -109,6 +113,7 @@ Capas principales:
 |-- tests/                       # Tests unitarios e integracion
 |-- web/                         # Frontend React/Vite
 |-- Dockerfile
+|-- description.md               # Enunciado del proyecto
 `-- README.md
 ```
 
@@ -199,6 +204,8 @@ Endpoints implementados:
 | `GET` | `/distraction/health` | Estado del clasificador de distraccion |
 | `GET` | `/distraction/classes` | Clases disponibles y medidas preventivas |
 | `POST` | `/distraction/predict` | Clasificacion de una imagen subida |
+| `GET` | `/recommender/health` | Estado del recomendador |
+| `POST` | `/recommender/recommend` | Recomendacion basada en preferencias o usuario existente |
 
 Ejemplo de pronostico de demanda:
 
@@ -333,7 +340,7 @@ pytest tests/integration
 
 El archivo `data/demanda_transporte.csv` contiene 7.500 registros sinteticos:
 
-- 5 rutas.
+- 5 rutas interurbanas colombianas (Bogota-Medellin, Bogota-Cali, Bogota-Cartagena, Medellin-Cartagena, Cali-Barranquilla).
 - 1.500 dias por ruta.
 - Periodo desde `2024-01-01` hasta `2028-02-08`.
 - Variables de fecha, ruta, pasajeros, viajes, clima y calendario.
@@ -355,6 +362,14 @@ El flujo usa el dataset `Travel Recommendation Dataset` de Kaggle. El cargador
 lee archivos CSV de usuarios, destinos, historial y resenas; tambien infiere
 alias comunes de columnas para usuario, destino, rating y timestamp.
 
+## Analisis exploratorio de datos
+
+Cada modulo cuenta con un notebook de analisis exploratorio en `notebooks/`:
+
+- Modulo 1 (demanda): [`notebooks/01_eda_demand.ipynb`](notebooks/01_eda_demand.ipynb).
+- Modulo 2 (distraccion): [`notebooks/02_eda_images.ipynb`](notebooks/02_eda_images.ipynb).
+- Modulo 3 (recomendacion): [`notebooks/03_eda_recommender.ipynb`](notebooks/03_eda_recommender.ipynb).
+
 ## Limitaciones
 
 - El dataset de demanda es sintetico; las metricas deben validarse con datos
@@ -364,14 +379,14 @@ alias comunes de columnas para usuario, destino, rating y timestamp.
 - No existe una clase explicita de somnolencia en el dataset entrenado.
 - El recomendador puede favorecer destinos populares; faltan metricas de
   diversidad, cobertura y novedad.
-- La API del recomendador esta pendiente: `api/routers/recommender.py` existe,
-  pero no esta implementado ni incluido en `api/main.py`.
 
 ## Documentacion
 
 Documentos principales:
 
+- [`description.md`](description.md): descripcion del enunciado del proyecto.
 - [`docs/ReporteTecnico.md`](docs/ReporteTecnico.md): reporte tecnico integral.
+- [`docs/ethics/etica_y_sesgos.md`](docs/ethics/etica_y_sesgos.md): reflexion etica sobre manejo de datos y sesgos.
 - [`docs/informe_modulo1_demanda.md`](docs/informe_modulo1_demanda.md): detalle del modulo de demanda.
 - [`docs/informe_modulo2_distraction_entrenamiento.md`](docs/informe_modulo2_distraction_entrenamiento.md): entrenamiento del clasificador.
 - [`docs/module2_distraction.md`](docs/module2_distraction.md): uso del modulo de distraccion.

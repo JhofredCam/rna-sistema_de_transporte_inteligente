@@ -1,0 +1,161 @@
+{
+  "dataset": "Travel destination recommender (Kaggle)",
+  "ruta_datos": "data/raw/module3_recommender",
+  "archivos": [
+    "Expanded_Destinations.csv",
+    "Final_Updated_Expanded_Reviews.csv",
+    "Final_Updated_Expanded_UserHistory.csv",
+    "Final_Updated_Expanded_Users.csv"
+  ],
+  "n_usuarios_registrados": 999,
+  "n_destinos_catalogo": 1000,
+  "n_resenas": 999,
+  "n_historial": 999,
+  "n_interacciones": 1998,
+  "n_pares_usuario_destino_unicos": 1998,
+  "n_usuarios_con_interacciones": 858,
+  "n_destinos_con_interacciones": 866,
+  "usuarios_sin_interacciones": 141,
+  "destinos_sin_interacciones": 134,
+  "distribucion_ratings": {
+    "resenas": {
+      "1": 198,
+      "2": 199,
+      "3": 185,
+      "4": 216,
+      "5": 201
+    },
+    "historial": {
+      "1": 206,
+      "2": 228,
+      "3": 201,
+      "4": 183,
+      "5": 181
+    },
+    "total_combinado": {
+      "1": 404,
+      "2": 427,
+      "3": 386,
+      "4": 399,
+      "5": 382
+    }
+  },
+  "rating_medio": 2.964,
+  "rating_mediana": 3.0,
+  "interacciones_por_usuario": {
+    "min": 1,
+    "max": 7,
+    "media": 2.329,
+    "mediana": 2.0,
+    "usuarios_con_1_interaccion": 252,
+    "usuarios_con_hasta_2_interacciones": 532
+  },
+  "sparsidad": 0.997311,
+  "densidad": 0.002689,
+  "top10_destinos": [
+    {
+      "destination_id": 872,
+      "nombre": "Goa Beaches",
+      "tipo": "Beach",
+      "estado": "Goa",
+      "n_interacciones": 7
+    },
+    {
+      "destination_id": 676,
+      "nombre": "Taj Mahal",
+      "tipo": "Historical",
+      "estado": "Uttar Pradesh",
+      "n_interacciones": 7
+    },
+    {
+      "destination_id": 969,
+      "nombre": "Kerala Backwaters",
+      "tipo": "Nature",
+      "estado": "Kerala",
+      "n_interacciones": 7
+    },
+    {
+      "destination_id": 113,
+      "nombre": "Jaipur City",
+      "tipo": "City",
+      "estado": "Rajasthan",
+      "n_interacciones": 7
+    },
+    {
+      "destination_id": 389,
+      "nombre": "Kerala Backwaters",
+      "tipo": "Nature",
+      "estado": "Kerala",
+      "n_interacciones": 6
+    },
+    {
+      "destination_id": 346,
+      "nombre": "Taj Mahal",
+      "tipo": "Historical",
+      "estado": "Uttar Pradesh",
+      "n_interacciones": 6
+    },
+    {
+      "destination_id": 408,
+      "nombre": "Jaipur City",
+      "tipo": "City",
+      "estado": "Rajasthan",
+      "n_interacciones": 6
+    },
+    {
+      "destination_id": 886,
+      "nombre": "Taj Mahal",
+      "tipo": "Historical",
+      "estado": "Uttar Pradesh",
+      "n_interacciones": 6
+    },
+    {
+      "destination_id": 436,
+      "nombre": "Taj Mahal",
+      "tipo": "Historical",
+      "estado": "Uttar Pradesh",
+      "n_interacciones": 6
+    },
+    {
+      "destination_id": 975,
+      "nombre": "Leh Ladakh",
+      "tipo": "Adventure",
+      "estado": "Jammu and Kashmir",
+      "n_interacciones": 6
+    }
+  ],
+  "tipos_destino": {
+    "Historical": 200,
+    "Beach": 200,
+    "City": 200,
+    "Nature": 200,
+    "Adventure": 200
+  },
+  "estados": {
+    "Uttar Pradesh": 200,
+    "Goa": 200,
+    "Rajasthan": 200,
+    "Kerala": 200,
+    "Jammu and Kashmir": 200
+  },
+  "preferencias_usuarios": {
+    "Historical": 666,
+    "Beaches": 333,
+    "Nature": 333,
+    "Adventure": 333,
+    "City": 333
+  },
+  "nombres_lugar_unicos": 5,
+  "ids_por_nombre": {
+    "Goa Beaches": 200,
+    "Jaipur City": 200,
+    "Kerala Backwaters": 200,
+    "Leh Ladakh": 200,
+    "Taj Mahal": 200
+  },
+  "figuras": [
+    "distribucion_ratings.png",
+    "long_tail_usuarios.png",
+    "popularidad_destinos.png"
+  ]
+}

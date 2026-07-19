@@ -6,35 +6,35 @@
   },
   "por_ruta": [
     {
-      "ruta": "Ruta A",
+      "ruta": "Bogotá - Medellín",
       "route_id": 0,
       "rmse": 156.15,
       "mae": 116.03,
       "mape": 7.53
     },
     {
-      "ruta": "Ruta B",
+      "ruta": "Bogotá - Cali",
       "route_id": 1,
       "rmse": 241.24,
       "mae": 181.25,
       "mape": 7.65
     },
     {
-      "ruta": "Ruta C",
+      "ruta": "Bogotá - Cartagena",
       "route_id": 2,
       "rmse": 108.4,
       "mae": 83.37,
       "mape": 8.21
     },
     {
-      "ruta": "Ruta D",
+      "ruta": "Medellín - Cartagena",
       "route_id": 3,
       "rmse": 196.47,
       "mae": 143.69,
       "mape": 7.23
     },
     {
-      "ruta": "Ruta E",
+      "ruta": "Cali - Barranquilla",
       "route_id": 4,
       "rmse": 147.15,
       "mae": 104.97,

@@ -61,16 +61,27 @@ export default function App() {
     }
   }, []);
 
-  const handleRecommendDestinations = useCallback(async (clientId, tab) => {
+  const handleRecommendDestinations = useCallback(async (preferences, tab) => {
     setModuleTab(tab || 'recommendation');
     setIsProcessing(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    const destinations = recommendDestinations(clientId);
-    setRecommendationResult({ destinations, clientId });
-    setIsProcessing(false);
-    setTimeout(() => {
-      resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
+    setError(null);
+    try {
+      const destinations = await recommendDestinations(preferences);
+      const summaryParts = [];
+      if (preferences?.tripType) summaryParts.push(preferences.tripType);
+      if (preferences?.budget) summaryParts.push(preferences.budget);
+      if (preferences?.interests?.length) summaryParts.push(preferences.interests.join(', '));
+      const clientId = summaryParts.length > 0 ? summaryParts.join(' · ') : 'Preferencias generales';
+      setRecommendationResult({ destinations, clientId });
+    } catch (err) {
+      setRecommendationResult(null);
+      setError(err?.message || 'Error al conectar con el servidor de recomendaciones');
+    } finally {
+      setIsProcessing(false);
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
   }, []);
 
   const handleToggleDocs = useCallback(() => {

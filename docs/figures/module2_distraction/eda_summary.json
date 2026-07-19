@@ -1,0 +1,65 @@
+{
+  "dataset": "Multi-Class Driver Behavior Image Dataset",
+  "ruta_datos": "data/raw/module2_distraction/Multi-Class Driver Behavior Image Dataset",
+  "total_imagenes": 7276,
+  "conteo_por_clase": {
+    "other_activities": 1184,
+    "safe_driving": 1679,
+    "talking_phone": 1513,
+    "texting_phone": 1561,
+    "turning": 1339
+  },
+  "porcentaje_por_clase": {
+    "other_activities": 16.27,
+    "safe_driving": 23.08,
+    "talking_phone": 20.79,
+    "texting_phone": 21.45,
+    "turning": 18.4
+  },
+  "split": "sin split train/test predefinido (carpetas planas por clase)",
+  "extensiones": {
+    ".png": 200,
+    ".jpg": 7076
+  },
+  "muestra": {
+    "n": 750,
+    "por_clase": 150,
+    "seed": 42
+  },
+  "resolucion_dominante": {
+    "resolucion": "640x480",
+    "n_en_muestra": 675,
+    "porcentaje_muestra": 90.0
+  },
+  "n_resoluciones_distintas_muestra": 9,
+  "ancho_px": {
+    "min": 623,
+    "max": 4096,
+    "media": 817.3
+  },
+  "alto_px": {
+    "min": 384,
+    "max": 4096,
+    "media": 683.4
+  },
+  "brillo_medio_por_clase": {
+    "other_activities": 97.98,
+    "safe_driving": 92.91,
+    "talking_phone": 94.61,
+    "texting_phone": 91.35,
+    "turning": 94.51
+  },
+  "contraste_medio_por_clase": {
+    "other_activities": 78.83,
+    "safe_driving": 79.53,
+    "talking_phone": 80.13,
+    "texting_phone": 80.25,
+    "turning": 80.18
+  },
+  "figuras": [
+    "distribucion_clases.png",
+    "distribucion_resoluciones.png",
+    "brillo_por_clase.png",
+    "ejemplos_por_clase.png"
+  ]
+}

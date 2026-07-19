@@ -10,7 +10,7 @@ class StripDoubleSlashMiddleware(BaseHTTPMiddleware):
             request.scope["path"] = path.replace("//", "/")
         return await call_next(request)
 
-from api.routers import demand, distraction
+from api.routers import demand, distraction, recommender
 
 app = FastAPI(
     title="Sistema Inteligente de Transporte",
@@ -37,6 +37,7 @@ app.add_middleware(StripDoubleSlashMiddleware)
 # Routers
 app.include_router(demand.router)
 app.include_router(distraction.router)
+app.include_router(recommender.router)
 
 @app.get("/")
 async def root():
