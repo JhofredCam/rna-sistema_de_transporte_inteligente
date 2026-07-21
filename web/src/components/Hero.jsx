@@ -8,23 +8,10 @@
 import { ArrowDown, Shield, Brain } from 'lucide-react';
 import { createElement } from 'react';
 
-export default function Hero({ serverStatus }) {
+export default function Hero() {
   const scrollToModules = () => {
     document.getElementById('modulos')?.scrollIntoView({ behavior: 'smooth' });
   };
-
-  const getStatusConfig = () => {
-    switch (serverStatus) {
-      case 'online':
-        return { color: 'bg-status-ok', text: 'Sistema de Deep Learning Activado', textColor: 'text-brand-300' };
-      case 'offline':
-        return { color: 'bg-status-error', text: 'Servidor fuera de linea', textColor: 'text-red-400' };
-      default:
-        return { color: 'bg-status-warn', text: 'Cargando Red Neuronal...', textColor: 'text-brand-300/70' };
-    }
-  };
-
-  const status = getStatusConfig();
 
   return (
     <section
@@ -39,14 +26,6 @@ export default function Hero({ serverStatus }) {
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-light mb-8 animate-fade-in-up">
-          <div className={`w-2 h-2 rounded-full ${status.color} animate-pulse`} />
-          <span className={`text-sm font-medium ${status.textColor}`}>
-            {status.text}
-          </span>
-        </div>
-
         {/* Main heading */}
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight mb-6 animate-fade-in-up">
           <span className="text-white">Sistema Inteligente </span>

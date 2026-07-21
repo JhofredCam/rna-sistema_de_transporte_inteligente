@@ -42,69 +42,125 @@ class PreferenceRequest(BaseModel):
     top_k: int = Field(default=5, ge=1, le=20, description="Número de recomendaciones")
 
 
+_KEYWORD_MAP: dict[str, list[str]] = {
+    "playa": ["beach", "coast", "sea", "water"],
+    "montaña": ["mountain", "hill", "nature"],
+    "ciudad": ["city", "urban"],
+    "aventura": ["adventure"],
+    "espiritual": ["heritage", "spiritual", "temple"],
+    "gastronomía": ["food", "cuisine", "gastronomy"],
+    "historia": ["historical", "history", "heritage"],
+    "ecoturismo": ["nature", "eco", "wildlife"],
+    "buceo": ["beach", "water", "sea", "diving"],
+    "senderismo": ["adventure", "mountain", "trekking", "hiking"],
+    "cultura": ["heritage", "historical", "culture", "city"],
+    "naturaleza": ["nature"],
+    "nature": ["nature"],
+    "beach": ["beach", "coast", "sea", "water"],
+    "adventure": ["adventure"],
+    "culture": ["culture", "heritage", "historical", "city"],
+    "city": ["city", "urban"],
+    "mountain": ["mountain", "hill", "nature"],
+    "historical": ["historical", "history", "heritage"],
+    "heritage": ["heritage", "historical"],
+}
+
+
+def _expand_keywords(keywords: set[str]) -> set[str]:
+    expanded: set[str] = set()
+    for kw in keywords:
+        kw_lower = kw.lower().strip()
+        if kw_lower in _KEYWORD_MAP:
+            expanded.update(_KEYWORD_MAP[kw_lower])
+        else:
+            expanded.add(kw_lower)
+    return expanded
+
+
 def _content_based_recommend(
     rec,
     preferences: dict[str, Any],
     top_k: int = 5,
 ) -> list[dict[str, Any]]:
-    keywords = set()
+    raw_keywords: set[str] = set()
     if preferences.get("trip_type"):
-        keywords.add(preferences["trip_type"].lower())
+        raw_keywords.add(preferences["trip_type"])
     if preferences.get("interests"):
-        keywords.update(i.lower() for i in preferences["interests"])
+        raw_keywords.update(preferences["interests"])
 
-    item_scores = []
+    expanded_keywords = _expand_keywords(raw_keywords)
+    total_keywords = len(expanded_keywords) if expanded_keywords else 0
+
+    items = []
+    popularities = []
     for item_idx in range(len(rec.idx_to_item)):
         metadata = rec.item_metadata[item_idx] if item_idx < len(rec.item_metadata) else {}
         name = rec._display_name(item_idx)
-
-        meta_str = " ".join(str(v) for v in metadata.values()).lower()
         name_lower = str(name).lower()
+        meta_str = " ".join(str(v) for v in metadata.values()).lower()
+        type_lower = str(metadata.get("Type", "")).lower()
 
-        score = 0.0
-        for kw in keywords:
-            if kw in meta_str or kw in name_lower:
-                score += 1.0
+        match_count = 0
+        for kw in expanded_keywords:
+            if kw in meta_str or kw in name_lower or kw in type_lower:
+                match_count += 1
 
-        if preferences.get("budget") == "bajo":
-            for cheap_kw in ["budget", "cheap", "affordable", "hostel", "backpacker"]:
-                if cheap_kw in meta_str:
-                    score += 0.5
-                    break
-        elif preferences.get("budget") == "alto":
-            for luxury_kw in ["luxury", "premium", "resort", "5-star", "five-star"]:
-                if luxury_kw in meta_str:
-                    score += 0.5
-                    break
+        pop_raw = metadata.get("Popularity", 0)
+        try:
+            pop_val = float(pop_raw)
+        except (TypeError, ValueError):
+            pop_val = 0.0
+        popularities.append(pop_val)
 
-        item_scores.append({
+        items.append({
             "item_idx": item_idx,
             "name": str(name),
-            "score": score,
+            "match_count": match_count,
+            "popularity": pop_val,
             "metadata": metadata,
         })
 
-    item_scores.sort(key=lambda x: x["score"], reverse=True)
+    pop_min = min(popularities) if popularities else 0.0
+    pop_max = max(popularities) if popularities else 1.0
+    pop_range = (pop_max - pop_min) if pop_max > pop_min else 1.0
 
-    seen = set()
-    recommendations = []
-    for item in item_scores:
+    budget = preferences.get("budget")
+    for item in items:
+        pop_norm = (item["popularity"] - pop_min) / pop_range
+
+        if total_keywords == 0:
+            item["score"] = pop_norm
+            item["content_score"] = 0.0
+        else:
+            match_ratio = item["match_count"] / total_keywords
+            item["content_score"] = match_ratio
+            if match_ratio > 0:
+                item["score"] = 0.6 + match_ratio * 0.4
+            else:
+                item["score"] = pop_norm * 0.4
+
+        if budget == "bajo":
+            item["score"] += (1.0 - pop_norm) * 0.1
+        elif budget == "alto":
+            item["score"] += pop_norm * 0.1
+
+        item["score"] = max(0.0, min(1.0, item["score"]))
+
+    items.sort(key=lambda x: (x["score"], x["popularity"]), reverse=True)
+
+    seen: set[str] = set()
+    recommendations: list[dict[str, Any]] = []
+    for item in items:
         identity = item["name"].strip().lower()
         if identity in seen:
             continue
         seen.add(identity)
 
-        item_idx = item["item_idx"]
-        item_embedding = rec.model.item_embedding(
-            torch.tensor([item_idx], device=rec.device)
-        )
-        avg_score = item_embedding.norm().item()
-
         recommendations.append({
             "rank": len(recommendations) + 1,
             "destination": item["name"],
-            "score": float(item["score"] + avg_score * 0.1),
-            "content_score": float(item["score"]),
+            "score": round(float(item["score"]), 4),
+            "content_score": round(float(item["content_score"]), 4),
             "metadata": item["metadata"],
         })
         if len(recommendations) >= top_k:

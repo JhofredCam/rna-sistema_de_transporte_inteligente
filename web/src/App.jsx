@@ -1,5 +1,5 @@
 import { Sparkles } from 'lucide-react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import AboutModel from './components/AboutModel';
 import Footer from './components/Footer';
 import Hero from './components/Hero';
@@ -8,7 +8,7 @@ import Navbar from './components/Navbar';
 import ReadmeViewer from './components/ReadmeViewer';
 import Resources from './components/Resources';
 import SystemForm from './components/SystemForm';
-import { checkServerHealth, classifyDriver, predictDemand, recommendDestinations } from './model/transportModel';
+import { classifyDriver, predictDemand, recommendDestinations } from './model/transportModel';
 
 export default function App() {
   const [demandResult, setDemandResult] = useState(null);
@@ -19,13 +19,6 @@ export default function App() {
   const [error, setError] = useState(null);
   const resultRef = useRef(null);
   const [showDocs, setShowDocs] = useState(false);
-  const [serverStatus, setServerStatus] = useState('checking');
-
-  useEffect(() => {
-    checkServerHealth().then((online) => {
-      setServerStatus(online ? 'online' : 'offline');
-    });
-  }, []);
 
   const handlePredictDemand = useCallback(async (routeId, tab) => {
     setModuleTab(tab || 'demand');
@@ -107,7 +100,7 @@ export default function App() {
     <div className="bg-animated min-h-screen">
       <Navbar onShowDocs={handleShowDocs} />
 
-      <Hero serverStatus={serverStatus} />
+      <Hero />
 
       <section id="modulos" className="py-24 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
