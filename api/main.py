@@ -1,3 +1,13 @@
+import sys
+from pathlib import Path
+
+# Bootstrap de sys.path: permite arrancar tanto con `uvicorn api.main:app`
+# (desde la raíz del repo) como con `uvicorn main:app` (comando autodetectado
+# por Render con el directorio api/ como raíz de trabajo).
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(_PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(_PROJECT_ROOT))
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
