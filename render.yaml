@@ -1,0 +1,17 @@
+# Blueprint de Render para el backend FastAPI.
+# Corrige el autodetect de Render (`uvicorn main:app`), que falla porque la app
+# vive en `api/main.py` y usa imports absolutos de paquete desde la raíz del repo.
+# Mantiene el mismo comando estándar del repo (Dockerfile / railpack.json):
+#   uvicorn api.main:app --host 0.0.0.0 --port $PORT
+#
+# El buildCommand instala PyTorch CPU-only ANTES de requirements.txt porque en
+# Linux `pip install torch` trae los wheels con CUDA (~2-4 GB), lo que excede el
+# disco/RAM del plan free de Render. Así `api/requirements.txt` queda intacto
+# para desarrollo local con CUDA.
+services:
+  - type: web
+    name: sistema-transporte-inteligente-api
+    env: python
+    plan: free
+    buildCommand: pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu && pip install -r api/requirements.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
